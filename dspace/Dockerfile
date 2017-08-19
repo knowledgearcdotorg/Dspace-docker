@@ -30,9 +30,6 @@ RUN mvn package &&\
     cd dspace/target/dspace-installer &&\
     cp -r webapps/xmlui webapps/oai webapps/solr webapps/rest /opt/apache-tomcat-9.0.0.M26/webapps
 
-RUN wget -O /wait-for-it.sh https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh &&\
-    chmod +x /wait-for-it.sh
-
 ADD entry.sh /entry.sh
 
 ENTRYPOINT /entry.sh
