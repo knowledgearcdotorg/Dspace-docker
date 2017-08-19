@@ -3,7 +3,7 @@ services:
   dspace:
     build: ./dspace
     image: dspace:latest
-#    container_name: dspace
+    container_name: dspace
     depends_on:
       - postgres
     ports:
@@ -11,7 +11,7 @@ services:
       - 8080:8080
   postgres:
     image: postgres
-#    container_name: postgres
+    container_name: postgres
     environment:
       POSTGRES_PASSWORD: dspace
       POSTGRES_USER: dspace
