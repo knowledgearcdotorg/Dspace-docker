@@ -27,7 +27,7 @@ WORKDIR dspace-6.1-src-release
 ADD local.cfg dspace/config/local.cfg
 
 RUN mvn package &&\
-    cd dspace/target/dspace-installer &&\
+    cd dspace/target/dspace-installer/webapps &&\
     #ant fresh_install &&\
     cp -r xmlui oai solr rest /opt/apache-tomcat-9.0.0.M26/webapps
 
