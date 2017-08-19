@@ -10,6 +10,7 @@ do
     check=$?
 done
 
+echo "Password is:"$PGPASSWORD
 psql -h postgres -p 5432 --username=postgres dspace -c "CREATE EXTENSION pgcrypto;"
 
 ant fresh_install
