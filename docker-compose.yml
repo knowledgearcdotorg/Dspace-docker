@@ -10,7 +10,7 @@ services:
       - 8080:8080
   postgres:
     image: postgres
-    environment: :
+    environment:
       - POSTGRES_PASSWORD: dspace
       - POSTGRES_USER: dspace
       - POSTGRES_DB: dspace
