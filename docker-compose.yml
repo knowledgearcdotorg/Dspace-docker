@@ -3,7 +3,6 @@ services:
   dspace:
     build: ./dspace
     image: dspace:latest
-    command: bash -c "env && /wait-for-it.sh postgres:5432 --strict -- /entry.sh"
     container_name: dspace
     environment:
       PGPASSWORD: dspace
