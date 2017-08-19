@@ -28,7 +28,6 @@ ADD local.cfg dspace/config/local.cfg
 
 RUN mvn package &&\
     cd dspace/target/dspace-installer &&\
-    ant fresh_install &&\
     cp -r webapps/xmlui webapps/oai webapps/solr webapps/rest /opt/apache-tomcat-9.0.0.M26/webapps
 
 ADD entry.sh /entry.sh
