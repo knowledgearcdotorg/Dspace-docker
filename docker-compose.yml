@@ -1,0 +1,18 @@
+version: '2'
+services:
+  dspace:
+    build: ./dspace
+    image: dspace:latest
+    depends_on:
+      - postgres
+    ports:
+      - 80:80
+      - 8080:8080
+  postgres:
+    image: postgres
+    environment: :
+      - POSTGRES_PASSWORD: dspace
+      - POSTGRES_USER: dspace
+      - POSTGRES_DB: dspace
+    ports:
+      - 5432:5432
