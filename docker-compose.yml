@@ -4,6 +4,8 @@ services:
     build: ./dspace
     image: dspace:latest
     container_name: dspace
+    environment:
+      PGPASSWORD: dspace
     depends_on:
       - postgres
     ports:
