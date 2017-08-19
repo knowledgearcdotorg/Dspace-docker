@@ -15,4 +15,6 @@ psql -h postgres -p 5432 --username=dspace dspace -c "CREATE EXTENSION pgcrypto;
 
 ant fresh_install
 
-/opt/apache-tomcat-9.0.0.M26/bin/catalina.sh
+cp -r /opt/dspace/webapps/xmlui /opt/dspace/webapps/oai /opt/dspace/webapps/solr /opt/dspace/webapps/rest /opt/apache-tomcat-9.0.0.M26/webapps
+
+/opt/apache-tomcat-9.0.0.M26/bin/catalina.sh run

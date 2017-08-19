@@ -27,8 +27,7 @@ WORKDIR dspace-6.1-src-release
 ADD local.cfg dspace/config/local.cfg
 
 RUN mvn package &&\
-    cd dspace/target/dspace-installer &&\
-    cp -r webapps/xmlui webapps/oai webapps/solr webapps/rest /opt/apache-tomcat-9.0.0.M26/webapps
+    cd dspace/target/dspace-installer
 
 ADD entry.sh /entry.sh
 
