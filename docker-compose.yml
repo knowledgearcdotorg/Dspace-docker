@@ -11,8 +11,8 @@ services:
   postgres:
     image: postgres
     environment:
-      - POSTGRES_PASSWORD: dspace
-      - POSTGRES_USER: dspace
-      - POSTGRES_DB: dspace
+      - POSTGRES_PASSWORD: "dspace"
+      - POSTGRES_USER: "dspace"
+      - POSTGRES_DB: "dspace"
     ports:
       - 5432:5432
