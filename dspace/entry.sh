@@ -17,7 +17,7 @@ ant fresh_install
 
 echo "I am "$(whoami)
 
-mkdir -p /opt/apache-tomcat-8.0.45/conf/Catalina
+mkdir -p /opt/apache-tomcat-8.0.45/conf/Catalina/localhost
 
 echo '<?xml version="1.0" ?>
 <Context name="" docBase="/opt/dspace/webapps/xmlui" reloadable="true" crossContext="true">
