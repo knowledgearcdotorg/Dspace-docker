@@ -17,9 +17,9 @@ WORKDIR /opt
 RUN wget https://github.com/DSpace/DSpace/releases/download/dspace-6.1/dspace-6.1-src-release.tar.gz &&\
     tar -xvzf dspace-6.1-src-release.tar.gz &&\
     rm -f dspace-6.1-src-release.tar.gz &&\
-    wget http://www-us.apache.org/dist/tomcat/tomcat-8/v8.5.20/bin/apache-tomcat-8.5.20.tar.gz &&\
-    tar -xvzf apache-tomcat-8.0.45.tar.gz &&\
-    rm -f apache-tomcat-8.0.45.tar.gz &&\
+    wget http://www-us.apache.org/dist/tomcat/tomcat-8/v8.0.46/bin/apache-tomcat-8.0.46.tar.gz &&\
+    tar -xvzf apache-tomcat-8.0.46.tar.gz &&\
+    rm -f apache-tomcat-8.0.46.tar.gz &&\
     chown -R dspace:dspace /opt/dspace-6.1-src-release/
 
 WORKDIR dspace-6.1-src-release
