@@ -34,7 +34,7 @@ jobs:
           name: Push dspace Docker image
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              docker login -u AWS -p ${ECR_PASSWORD} https://{ECR_ENDPOINT}
+              docker login -u AWS -p ${ECR_PASSWORD} https://${ECR_ENDPOINT}
               docker tag dspace "${ECR_ENDPOINT}/dspace:latest"
               docker push "${ECR_ENDPOINT}/dspace:latest"
             fi
