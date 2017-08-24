@@ -1,5 +1,12 @@
 #!/bin/bash
 
+if [ -z "$DIR" ]; then
+    echo "Environment variable DIR is not set!!!"
+    exit 1
+else
+    sed -i "s|dspace.dir.*=.*|dspace.dir=${DIR}|1" dspace/config/local.cfg
+fi
+
 cd /opt/dspace-6.1-src-release/dspace/target/dspace-installer
 
 check=1
