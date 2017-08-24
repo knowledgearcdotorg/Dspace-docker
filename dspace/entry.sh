@@ -4,7 +4,35 @@ if [ -z "$DIR" ]; then
     echo "Environment variable DIR is not set!!!"
     exit 1
 else
-    sed -i "s|dspace.dir.*=.*|dspace.dir=${DIR}|1" dspace/config/local.cfg
+    sed -i "s|dspace.dir.*=.*|dspace.dir=${DIR}|1" /opt/dspace-6.1-src-release/dspace/config/local.cfg
+fi
+
+if [ -z "$HOSTNAME" ]; then
+    echo "Environment variable HOSTNAME is not set!!!"
+    exit 1
+else
+    sed -i "s|dspace.hostname.*=.*|dspace.hostname=${HOSTNAME}|1" /opt/dspace-6.1-src-release/dspace/config/local.cfg
+fi
+
+if [ -z "$DB_URL" ]; then
+    echo "Environment variable DB_URL is not set!!!"
+    exit 1
+else
+    sed -i "s|db.url.*=.*|db.url=${DB_URL}|1" /opt/dspace-6.1-src-release/dspace/config/local.cfg
+fi
+
+if [ -z "$DB_USERNAME" ]; then
+    echo "Environment variable DB_USERNAME is not set!!!"
+    exit 1
+else
+    sed -i "s|db.username.*=.*|db.username=${DB_USERNAME}|1" /opt/dspace-6.1-src-release/dspace/config/local.cfg
+fi
+
+if [ -z "$DB_PASSWORD" ]; then
+    echo "Environment variable DB_PASSWORD is not set!!!"
+    exit 1
+else
+    sed -i "s|db.password.*=.*|db.password=${DB_PASSWORD}|1" /opt/dspace-6.1-src-release/dspace/config/local.cfg
 fi
 
 cd /opt/dspace-6.1-src-release/dspace/target/dspace-installer
