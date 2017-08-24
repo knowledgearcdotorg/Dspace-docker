@@ -169,7 +169,7 @@ do
 done
 
 echo "Password is:"$PGPASSWORD
-psql -h ${POSTGRES_PASSWORD} -p ${POSTGRES_PORT} --username=${DB_USERNAME} dspace -c "CREATE EXTENSION pgcrypto;"
+psql -h ${POSTGRES_HOST} -p ${POSTGRES_PORT} --username=${DB_USERNAME} dspace -c "CREATE EXTENSION pgcrypto;"
 
 ant fresh_install
 
