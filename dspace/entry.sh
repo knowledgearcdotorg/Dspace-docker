@@ -4,35 +4,35 @@ if [ -z "$DIR" ]; then
     echo "Environment variable DIR is not set!!!"
     exit 1
 else
-    sed -i "s|dspace.dir.*=.*|dspace.dir=${DIR}|1" /opt/dspace-6.1-src-release/dspace/config/local.cfg
+    sed -i "s|dspace.dir.*=.*|dspace.dir=${DIR}|1" /opt/dspace-6.1-src-release/dspace/config/dspace.cfg
 fi
 
 if [ -z "$HOSTNAME" ]; then
     echo "Environment variable HOSTNAME is not set!!!"
     exit 1
 else
-    sed -i "s|dspace.hostname.*=.*|dspace.hostname=${HOSTNAME}|1" /opt/dspace-6.1-src-release/dspace/config/local.cfg
+    sed -i "s|dspace.hostname.*=.*|dspace.hostname=${HOSTNAME}|1" /opt/dspace-6.1-src-release/dspace/config/dspace.cfg
 fi
 
 if [ -z "$DB_URL" ]; then
     echo "Environment variable DB_URL is not set!!!"
     exit 1
 else
-    sed -i "s|db.url.*=.*|db.url=${DB_URL}|1" /opt/dspace-6.1-src-release/dspace/config/local.cfg
+    sed -i "s|db.url.*=.*|db.url=${DB_URL}|1" /opt/dspace-6.1-src-release/dspace/config/dspace.cfg
 fi
 
 if [ -z "$DB_USERNAME" ]; then
     echo "Environment variable DB_USERNAME is not set!!!"
     exit 1
 else
-    sed -i "s|db.username.*=.*|db.username=${DB_USERNAME}|1" /opt/dspace-6.1-src-release/dspace/config/local.cfg
+    sed -i "s|db.username.*=.*|db.username=${DB_USERNAME}|1" /opt/dspace-6.1-src-release/dspace/config/dspace.cfg
 fi
 
 if [ -z "$DB_PASSWORD" ]; then
     echo "Environment variable DB_PASSWORD is not set!!!"
     exit 1
 else
-    sed -i "s|db.password.*=.*|db.password=${DB_PASSWORD}|1" /opt/dspace-6.1-src-release/dspace/config/local.cfg
+    sed -i "s|db.password.*=.*|db.password=${DB_PASSWORD}|1" /opt/dspace-6.1-src-release/dspace/config/dspace.cfg
 fi
 
 cd /opt/dspace-6.1-src-release/dspace/target/dspace-installer
@@ -52,12 +52,12 @@ ant fresh_install
 
 echo "I am "$(whoami)
 
-mkdir -p /opt/apache-tomcat-8.0.46/conf/Catalina/localhost
+mkdir -p /opt/apache-tomcat-8.0.46/conf/Catalina/dspacehost
 
 echo '<?xml version="1.0" ?>
 <Context name="" docBase="/dspace/webapps/xmlui" reloadable="true" crossContext="true">
     <WatchedResource>WEB-INF/web.xml</WatchedResource>
-</Context>' > /opt/apache-tomcat-8.0.46/conf/Catalina/localhost/ROOT.xml
+</Context>' > /opt/apache-tomcat-8.0.46/conf/Catalina/dspacehost/ROOT.xml
 
 echo '<?xml version="1.0" ?>
 <Context name="/rest" docBase="/dspace/webapps/rest" reloadable="true" crossContext="true">
