@@ -177,6 +177,8 @@ echo "I am "$(whoami)
 
 mkdir -p /opt/apache-tomcat-${TOMCAT_MINOR}/conf/Catalina/{localhost,dspace}
 
+rm -rf /opt/apache-tomcat-${TOMCAT_MINOR}/webapps
+
 echo '<?xml version="1.0" ?>
 <Context name="" docBase="/dspace/webapps/xmlui" reloadable="true" crossContext="true">
     <WatchedResource>WEB-INF/web.xml</WatchedResource>
