@@ -144,7 +144,7 @@
       /opt/tomcat/config/archive/ then:
       xmlBase="/opt/tomcat/config/archive"
       -->
-      <Host name="a21e9c30788c511e7b25e0648761fa5c-350127752.eu-west-1.elb.amazonaws.com"  xmlBase="/opt/apache-tomcat-8.0.46/conf/Catalina/dspace/"
+      <Host name="a21e9c30788c511e7b25e0648761fa5c-350127752.eu-west-1.elb.amazonaws.com"  xmlBase="/opt/apache-tomcat-8.0.46/conf/Catalina/localhost/"
             unpackWARs="true" autoDeploy="true">
       </Host>
     </Engine>

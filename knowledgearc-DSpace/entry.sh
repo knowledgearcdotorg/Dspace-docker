@@ -175,27 +175,27 @@ ant -Dconfig=/opt/dspace/dspace/config/local.cfg fresh_install
 
 echo "I am "$(whoami)
 
-mkdir -p /opt/apache-tomcat-${TOMCAT_MINOR}/conf/Catalina/localhost
+mkdir -p /opt/apache-tomcat-${TOMCAT_MINOR}/conf/Catalina/{localhost,dspace}
 
 echo '<?xml version="1.0" ?>
 <Context name="" docBase="/dspace/webapps/xmlui" reloadable="true" crossContext="true">
     <WatchedResource>WEB-INF/web.xml</WatchedResource>
-</Context>' > /opt/apache-tomcat-${TOMCAT_MINOR}/conf/Catalina/localhost/ROOT.xml
+</Context>' > /opt/apache-tomcat-${TOMCAT_MINOR}/conf/Catalina/dspace/ROOT.xml
 
 echo '<?xml version="1.0" ?>
 <Context name="/rest" docBase="/dspace/webapps/rest" reloadable="true" crossContext="true">
     <WatchedResource>WEB-INF/web.xml</WatchedResource>
-</Context>' > /opt/apache-tomcat-${TOMCAT_MINOR}/conf/Catalina/rest.xml
+</Context>' > /opt/apache-tomcat-${TOMCAT_MINOR}/conf/Catalina/dspace/rest.xml
 
 echo '<?xml version="1.0" ?>
 <Context name="/oai" docBase="/dspace/webapps/oai" reloadable="true" crossContext="true">
     <WatchedResource>WEB-INF/web.xml</WatchedResource>
-</Context>' > /opt/apache-tomcat-${TOMCAT_MINOR}/conf/Catalina/oai.xml
+</Context>' > /opt/apache-tomcat-${TOMCAT_MINOR}/conf/Catalina/dspace/oai.xml
 
 echo '<?xml version="1.0" ?>
 <Context name="/solr" docBase="/dspace/webapps/solr" reloadable="true" crossContext="true">
     <WatchedResource>WEB-INF/web.xml</WatchedResource>
-</Context>' > /opt/apache-tomcat-${TOMCAT_MINOR}/conf/Catalina/solr.xml
+</Context>' > /opt/apache-tomcat-${TOMCAT_MINOR}/conf/Catalina/localhost/solr.xml
 
 #echo "Copying webapps to tomcat..."
 #cp -r /dspace/webapps/xmlui /dspace/webapps/oai /dspace/webapps/solr /dspace/webapps/rest /opt/apache-tomcat-${TOMCAT_MINOR}/webapps
