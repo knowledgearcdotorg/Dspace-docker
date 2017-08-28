@@ -33,7 +33,7 @@ ADD local.cfg dspace/config/local.cfg
 RUN mvn package &&\
     cd dspace/target/dspace-installer
 
-#ADD server.xml /opt/apache-tomcat-8.0.46/conf/server.xml
+ADD server.xml /opt/apache-tomcat-8.0.46/conf/server.xml
 
 ADD entry.sh /entry.sh
 
