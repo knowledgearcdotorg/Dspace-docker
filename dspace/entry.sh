@@ -52,12 +52,12 @@ ant fresh_install
 
 echo "I am "$(whoami)
 
-mkdir -p /opt/apache-tomcat-8.0.46/conf/Catalina/dspacehost
+mkdir -p /opt/apache-tomcat-8.0.46/conf/Catalina/dspace
 
 echo '<?xml version="1.0" ?>
 <Context name="" docBase="/dspace/webapps/xmlui" reloadable="true" crossContext="true">
     <WatchedResource>WEB-INF/web.xml</WatchedResource>
-</Context>' > /opt/apache-tomcat-8.0.46/conf/Catalina/dspacehost/ROOT.xml
+</Context>' > /opt/apache-tomcat-8.0.46/conf/Catalina/dspace/ROOT.xml
 
 echo '<?xml version="1.0" ?>
 <Context name="/rest" docBase="/dspace/webapps/rest" reloadable="true" crossContext="true">

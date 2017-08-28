@@ -175,12 +175,12 @@ ant -Dconfig=/opt/dspace/dspace/config/local.cfg fresh_install
 
 echo "I am "$(whoami)
 
-mkdir -p /opt/apache-tomcat-${TOMCAT_MINOR}/conf/Catalina/dspacehost
+mkdir -p /opt/apache-tomcat-${TOMCAT_MINOR}/conf/Catalina/localhost
 
 echo '<?xml version="1.0" ?>
 <Context name="" docBase="/dspace/webapps/xmlui" reloadable="true" crossContext="true">
     <WatchedResource>WEB-INF/web.xml</WatchedResource>
-</Context>' > /opt/apache-tomcat-${TOMCAT_MINOR}/conf/Catalina/dspacehost/ROOT.xml
+</Context>' > /opt/apache-tomcat-${TOMCAT_MINOR}/conf/Catalina/localhost/ROOT.xml
 
 echo '<?xml version="1.0" ?>
 <Context name="/rest" docBase="/dspace/webapps/rest" reloadable="true" crossContext="true">
