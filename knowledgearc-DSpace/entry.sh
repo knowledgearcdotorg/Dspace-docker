@@ -201,4 +201,6 @@ echo '<?xml version="1.0" ?>
 #cp -r /dspace/webapps/xmlui /dspace/webapps/oai /dspace/webapps/solr /dspace/webapps/rest /opt/apache-tomcat-${TOMCAT_MINOR}/webapps
 #echo "Completed copying webapps."
 
+
+
 /opt/apache-tomcat-${TOMCAT_MINOR}/bin/catalina.sh run
