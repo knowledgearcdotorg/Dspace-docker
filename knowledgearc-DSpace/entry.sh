@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source /config/config
+
 ##########################
 # SERVER CONFIGURATION   #
 ##########################
@@ -157,6 +159,26 @@ if [ ! -z "$PLUGIN_SEQUENCE_ORG_DSPACE_AUTHENTICATE_AUTHENTICATIONMETHOD" ]; the
     sed -i "s|plugin.sequence.org.dspace.authenticate.AuthenticationMethod.*=.*|plugin.sequence.org.dspace.authenticate.AuthenticationMethod=${PLUGIN_SEQUENCE_ORG_DSPACE_AUTHENTICATE_AUTHENTICATIONMETHOD}|1" /opt/dspace/dspace/config/local.cfg
 fi
 
+#####################
+# S3 File Storage #
+#####################
+
+if [ ! -z "$S3_BUCKET_SIZE" ]; then
+    sed -i "s|s3.bucket.size.*=.*|s3.bucket.size=${S3_BUCKET_SIZE}|1" /opt/dspace/dspace/config/local.cfg
+fi
+
+if [ ! -z "$AWS_ACCESS_KEY_ID" ]; then
+    sed -i "s|s3.secret_key_id.*=.*|s3.secret_key_id=${AWS_ACCESS_KEY_ID}|1" /opt/dspace/dspace/config/local.cfg
+fi
+
+if [ ! -z "$AWS_SECRET_ACCESS_KEY" ]; then
+    sed -i "s|s3.secret_key_access.*=.*|s3.secret_key_access=${AWS_SECRET_ACCESS_KEY}|1" /opt/dspace/dspace/config/local.cfg
+fi
+
+if [ ! -z "$NAME" ]; then
+    sed -i "s|s3.bucket.*=.*|s3.bucket=archive.${NAME}.knowledgearc.net|1" /opt/dspace/dspace/config/local.cfg
+fi
+
 
 cd /opt/dspace/dspace/target/dspace-installer
 
@@ -200,7 +222,5 @@ echo '<?xml version="1.0" ?>
 #echo "Copying webapps to tomcat..."
 #cp -r /dspace/webapps/xmlui /dspace/webapps/oai /dspace/webapps/solr /dspace/webapps/rest /opt/apache-tomcat-${TOMCAT_MINOR}/webapps
 #echo "Completed copying webapps."
-
-
 
 /opt/apache-tomcat-${TOMCAT_MINOR}/bin/catalina.sh run
