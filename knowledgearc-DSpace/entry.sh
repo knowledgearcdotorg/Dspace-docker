@@ -105,7 +105,7 @@ if [ ! -z "$MAIL_SERVER" ]; then
 fi
 
 if [ ! -z "$AWS_ACCESS_KEY_ID" ]; then
-    sed -i "s|mail.server.username.*=.*|mail.server.username=${MAIL_SERVER_USERNAME}|1" /opt/dspace/dspace/config/local.cfg
+    sed -i "s|mail.server.username.*=.*|mail.server.username=${AWS_ACCESS_KEY_ID}|1" /opt/dspace/dspace/config/local.cfg
 fi
 
 if [ ! -z "$AWS_SECRET_ACCESS_KEY" ]; then
@@ -129,7 +129,7 @@ if [ ! -z "$EMAIL" ]; then
 fi
 
 if [ ! -z "$EMAIL" ]; then
-    sed -i "s|alert.recipient.*=.*|alert.recipient=${EMAIL}}|1" /opt/dspace/dspace/config/local.cfg
+    sed -i "s|alert.recipient.*=.*|alert.recipient=${EMAIL}|1" /opt/dspace/dspace/config/local.cfg
 fi
 
 if [ ! -z "$EMAIL" ]; then
