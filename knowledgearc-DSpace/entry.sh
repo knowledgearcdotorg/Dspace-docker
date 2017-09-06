@@ -101,7 +101,7 @@ fi
 #######################
 
 if [ ! -z "$MAIL_SERVER" ]; then
-    sed -i "s|mail.server.*=.*|mail.server=${MAIL_SERVER}|1" /opt/dspace/dspace/config/local.cfg
+    sed -i "s|mail.server=.*|mail.server=${MAIL_SERVER}|1" /opt/dspace/dspace/config/local.cfg
 fi
 
 if [ ! -z "$AWS_ACCESS_KEY_ID" ]; then
