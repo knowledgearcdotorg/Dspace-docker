@@ -62,4 +62,5 @@ aws s3api create-bucket --bucket $AWS_S3_ARCHIVE_BUCKET  --region $REGION --crea
 aws s3api create-bucket --bucket $AWS_S3_BACKUP_BUCKET  --region $REGION --create-bucket-configuration LocationConstraint=$REGION
 
 echo "AWS_SECRET_ACCESS_KEY = $AWS_SECRET_ACCESS_KEY
-AWS_ACCESS_KEY_ID = $AWS_ACCESS_KEY_ID" > /config/config
+AWS_ACCESS_KEY_ID = $AWS_ACCESS_KEY_ID
+EMAIL=$EMAIL" > /config/config

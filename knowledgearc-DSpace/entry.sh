@@ -2,6 +2,16 @@
 
 source /config/config
 
+# create ses password from iam secret.
+MSG="SendRawEmail";
+VerInBytes="2";
+VerInBytes=$(printf \\$(printf '%03o' "$VerInBytes"));
+
+SignInBytes=$(echo -n "$MSG"|openssl dgst -sha256 -hmac "$AWS_SECRET_ACCESS_KEY" -binary);
+SignAndVer=""$VerInBytes""$SignInBytes"";
+AWS_SES_PASSWORD=$(echo -n "$SignAndVer"|base64);
+
+
 ##########################
 # SERVER CONFIGURATION   #
 ##########################
@@ -94,36 +104,36 @@ if [ ! -z "$MAIL_SERVER" ]; then
     sed -i "s|mail.server.*=.*|mail.server=${MAIL_SERVER}|1" /opt/dspace/dspace/config/local.cfg
 fi
 
-if [ ! -z "$MAIL_SERVER_USERNAME" ]; then
+if [ ! -z "$AWS_ACCESS_KEY_ID" ]; then
     sed -i "s|mail.server.username.*=.*|mail.server.username=${MAIL_SERVER_USERNAME}|1" /opt/dspace/dspace/config/local.cfg
 fi
 
-if [ ! -z "$MAIL_SERVER_PASSWORD" ]; then
-    sed -i "s|mail.server.password.*=.*|mail.server.password=${MAIL_SERVER_PASSWORD}|1" /opt/dspace/dspace/config/local.cfg
+if [ ! -z "$AWS_SECRET_ACCESS_KEY" ]; then
+    sed -i "s|mail.server.password.*=.*|mail.server.password=${AWS_SES_PASSWORD}|1" /opt/dspace/dspace/config/local.cfg
 fi
 
 if [ ! -z "$MAIL_SERVER_PORT" ]; then
     sed -i "s|mail.server.port.*=.*|mail.server.port=${MAIL_SERVER_PORT}|1" /opt/dspace/dspace/config/local.cfg
 fi
 
-if [ ! -z "$MAIL_FROM_ADDRESS" ]; then
-    sed -i "s|mail.from.address.*=.*|mail.from.address=${MAIL_FROM_ADDRESS}|1" /opt/dspace/dspace/config/local.cfg
+if [ ! -z "$EMAIL" ]; then
+    sed -i "s|mail.from.address.*=.*|mail.from.address=${EMAIL}|1" /opt/dspace/dspace/config/local.cfg
 fi
 
-if [ ! -z "$FEEDBACK_RECIPIENT" ]; then
-    sed -i "s|feedback.recipient.*=.*|feedback.recipient=${FEEDBACK_RECIPIENT}|1" /opt/dspace/dspace/config/local.cfg
+if [ ! -z "$EMAIL" ]; then
+    sed -i "s|feedback.recipient.*=.*|feedback.recipient=${EMAIL}|1" /opt/dspace/dspace/config/local.cfg
 fi
 
-if [ ! -z "$MAIL_ADMIN" ]; then
-    sed -i "s|mail.admin.*=.*|mail.admin=${MAIL_ADMIN}|1" /opt/dspace/dspace/config/local.cfg
+if [ ! -z "$EMAIL" ]; then
+    sed -i "s|mail.admin.*=.*|mail.admin=${EMAIL}|1" /opt/dspace/dspace/config/local.cfg
 fi
 
-if [ ! -z "$ALERT_RECIPIENT" ]; then
-    sed -i "s|alert.recipient.*=.*|alert.recipient=${ALERT_RECIPIENT}|1" /opt/dspace/dspace/config/local.cfg
+if [ ! -z "$EMAIL" ]; then
+    sed -i "s|alert.recipient.*=.*|alert.recipient=${EMAIL}}|1" /opt/dspace/dspace/config/local.cfg
 fi
 
-if [ ! -z "$REGISTRATION_NOTIFY" ]; then
-    sed -i "s|registration.notify.*=.*|registration.notify=${REGISTRATION_NOTIFY}|1" /opt/dspace/dspace/config/local.cfg
+if [ ! -z "$EMAIL" ]; then
+    sed -i "s|registration.notify.*=.*|registration.notify=${EMAIL}|1" /opt/dspace/dspace/config/local.cfg
 fi
 
 
