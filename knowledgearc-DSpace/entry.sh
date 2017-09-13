@@ -65,6 +65,9 @@ if [ ! -z "$DB_USERNAME" ]; then
 fi
 
 if [ ! -z "$DB_PASSWORD" ]; then
+    # This is here because this env will be read from a Kubernetes secret.
+    # And Kubernetes secrets usually have a trailing newline
+    # This would cause a sed unterminated `s' error
     DB_PASSWORD=`echo ${DB_PASSWORD} | tr -d '\n'`
     sed -i "s|db.password.*=.*|db.password=${DB_PASSWORD}|1" /tmp/dspace/dspace/config/local.cfg
 fi
