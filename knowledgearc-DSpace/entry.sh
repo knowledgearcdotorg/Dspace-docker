@@ -197,7 +197,7 @@ if [ ! -z "$LOG_DIR" ]; then
     sed -i "s|log.dir.*=.*|log.dir=${LOG_DIR}|1" /tmp/dspace/dspace/config/local.cfg
 fi
 
-cd /opt/dspace/dspace/target/dspace-installer
+cd /tmp/dspace/dspace/target/dspace-installer
 
 check=1
 
