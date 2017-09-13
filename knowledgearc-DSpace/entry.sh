@@ -65,6 +65,7 @@ if [ ! -z "$DB_USERNAME" ]; then
 fi
 
 if [ ! -z "$DB_PASSWORD" ]; then
+    DB_PASSWORD=`echo ${DB_PASSWORD} | tr -d '\n'`
     sed -i "s|db.password.*=.*|db.password=${DB_PASSWORD}|1" /tmp/dspace/dspace/config/local.cfg
 fi
 
