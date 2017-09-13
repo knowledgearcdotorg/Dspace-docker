@@ -240,4 +240,10 @@ echo '<?xml version="1.0" ?>
     <WatchedResource>WEB-INF/web.xml</WatchedResource>
 </Context>' > /opt/apache-tomcat-${TOMCAT_MINOR}/conf/Catalina/localhost/solr.xml
 
+echo '#!/bin/bash
+aws iam delete-access-key --access-key-id ${AWS_ACCESS_KEY_ID}
+' > /prestop.sh
+
+chmod +x /prestop.sh
+
 /opt/apache-tomcat-${TOMCAT_MINOR}/bin/catalina.sh run
