@@ -218,27 +218,27 @@ ant fresh_install
 
 echo "I am "$(whoami)
 
-mkdir -p /opt/apache-tomcat-${TOMCAT_MINOR}/conf/Catalina/dspacehost
+mkdir -p /opt/apache-tomcat-${TOMCAT_MINOR}/conf/Catalina/localhost
 
 echo '<?xml version="1.0" ?>
 <Context name="" docBase="/opt/dspace/webapps/xmlui" reloadable="true" crossContext="true">
     <WatchedResource>WEB-INF/web.xml</WatchedResource>
-</Context>' > /opt/apache-tomcat-${TOMCAT_MINOR}/conf/Catalina/dspacehost/ROOT.xml
+</Context>' > /opt/apache-tomcat-${TOMCAT_MINOR}/conf/Catalina/localhost/ROOT.xml
 
 echo '<?xml version="1.0" ?>
 <Context name="/rest" docBase="/opt/dspace/webapps/rest" reloadable="true" crossContext="true">
     <WatchedResource>WEB-INF/web.xml</WatchedResource>
-</Context>' > /opt/apache-tomcat-${TOMCAT_MINOR}/conf/Catalina/dspacehost/rest.xml
+</Context>' > /opt/apache-tomcat-${TOMCAT_MINOR}/conf/Catalina/localhost/rest.xml
 
 echo '<?xml version="1.0" ?>
 <Context name="/oai" docBase="/opt/dspace/webapps/oai" reloadable="true" crossContext="true">
     <WatchedResource>WEB-INF/web.xml</WatchedResource>
-</Context>' > /opt/apache-tomcat-${TOMCAT_MINOR}/conf/Catalina/dspacehost/oai.xml
+</Context>' > /opt/apache-tomcat-${TOMCAT_MINOR}/conf/Catalina/localhost/oai.xml
 
 echo '<?xml version="1.0" ?>
 <Context name="/solr" docBase="/opt/dspace/webapps/solr" reloadable="true" crossContext="true">
     <WatchedResource>WEB-INF/web.xml</WatchedResource>
-</Context>' > /opt/apache-tomcat-${TOMCAT_MINOR}/conf/Catalina/dspacehost/solr.xml
+</Context>' > /opt/apache-tomcat-${TOMCAT_MINOR}/conf/Catalina/localhost/solr.xml
 
 echo '#!/bin/bash
 aws iam delete-access-key --access-key-id ${AWS_ACCESS_KEY_ID}
