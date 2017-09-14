@@ -246,4 +246,6 @@ aws iam delete-access-key --access-key-id ${AWS_ACCESS_KEY_ID}
 
 chmod +x /prestop.sh
 
+rm -rf /opt/apache-tomcat-8.0.46/work/Catalina/localhost
+
 /opt/apache-tomcat-${TOMCAT_MINOR}/bin/catalina.sh run
