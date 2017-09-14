@@ -15,10 +15,14 @@ fi
 if [ -z "$AWS_ACCESS_KEY_ID" ]; then
     echo "Environment variable AWS_ACCESS_KEY_ID is not set!!!"
     exit 1
+else
+    AWS_ACCESS_KEY_ID=`echo $AWS_ACCESS_KEY_ID | tr -d '\n'`
 fi
 if [ -z "$AWS_SECRET_ACCESS_KEY" ]; then
     echo "Environment variable AWS_SECRET_ACCESS_KEY is not set!!!"
     exit 1
+else
+    AWS_SECRET_ACCESS_KEY=`echo $AWS_SECRET_ACCESS_KEY | tr -d '\n'`
 fi
 
 export AWS_S3_ARCHIVE_BUCKET="archive.$NAME.knowledgearc.net"
@@ -61,6 +65,6 @@ rm /tmp/ses-policy.json
 aws s3api create-bucket --bucket $AWS_S3_ARCHIVE_BUCKET  --region $REGION --create-bucket-configuration LocationConstraint=$REGION
 aws s3api create-bucket --bucket $AWS_S3_BACKUP_BUCKET  --region $REGION --create-bucket-configuration LocationConstraint=$REGION
 
-echo "export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
-export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
-export EMAIL=${EMAIL}" > /config/config
+echo "export AWS_SECRET_ACCESS_KEY=${AWS_USER_SECRET_ACCESS_KEY}
+export AWS_ACCESS_KEY_ID=${AWS_USER_ACCESS_KEY_ID}
+export EMAIL=${EMAIL}" >> /config/config
