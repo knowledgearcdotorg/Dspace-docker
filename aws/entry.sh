@@ -25,6 +25,68 @@ else
     AWS_SECRET_ACCESS_KEY=`echo $AWS_SECRET_ACCESS_KEY | tr -d '\n'`
 fi
 
+namespace=$NAME;
+service="dspace";
+cacert="/var/run/secrets/kubernetes.io/serviceaccount/ca.crt";
+token="$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)";
+export service=$(curl -s --cacert $cacert --header "Authorization:Bearer $token" https://kubernetes.default.svc/api/v1/namespaces/$namespace/services/$service | jq -r '.status.loadBalancer.ingress[0].hostname');
+
+echo -e "export DSPACE_HOSTNAME=${service}" >>/config/config
+
+echo "Service:" $service
+
+cat /config/config
+
+echo "File contents above."
+# Route53
+# Check if Record exists
+record=`aws route53 list-resource-record-sets --hosted-zone-id $ZONE_ID | jq --arg name "$NAME.archive.knowledgearc.net." '.ResourceRecordSets[] | select(.Name==$name) | length'`
+
+if [ -z $record ];
+then
+echo "No record exists. Creating record..."
+echo '{ "Comment": "Record automatically created by aws-bootstrap.",
+        "Changes": [
+            {
+                "Action": "CREATE",
+                "ResourceRecordSet": {
+                    "Name": "${NAME}.archive.knowledgearc.net",
+                    "Type": "CNAME",
+                    "TTL": 600,
+                  "ResourceRecords": [
+                    {
+                      "Value": "${service}"
+                    }
+                  ]
+                }
+            }
+        ]
+}' | envsubst > /tmp/route53.json
+cat /tmp/route53.json
+aws route53 change-resource-record-sets --hosted-zone-id $ZONE_ID --change-batch file:///tmp/route53.json
+else
+echo "Record exists. Updating..."
+echo '{ "Comment": "Record automatically created by aws-bootstrap.",
+        "Changes": [
+            {
+                "Action": "UPSERT",
+                "ResourceRecordSet": {
+                    "Name": "${NAME}.archive.knowledgearc.net",
+                    "Type": "CNAME",
+                    "TTL": 600,
+                  "ResourceRecords": [
+                    {
+                      "Value": "${service}"
+                    }
+                  ]
+                }
+            }
+        ]
+}' | envsubst > /tmp/route53.json
+cat /tmp/route53.json
+aws route53 change-resource-record-sets --hosted-zone-id $ZONE_ID --change-batch file:///tmp/route53.json
+fi
+
 export AWS_S3_ARCHIVE_BUCKET="archive.$NAME.knowledgearc.net"
 export AWS_S3_BACKUP_BUCKET="backup.$NAME.knowledgearc.net"
 

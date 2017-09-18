@@ -242,7 +242,7 @@ echo '<?xml version="1.0" ?>
 
 echo '#!/bin/bash
 aws iam delete-access-key --access-key-id ${AWS_ACCESS_KEY_ID}
-' > /prestop.sh
+' | envsubst > /prestop.sh
 
 chmod +x /prestop.sh
 
