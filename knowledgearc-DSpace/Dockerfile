@@ -28,6 +28,7 @@ WORKDIR /tmp
 
 RUN wget https://github.com/knowledgearcdotorg/DSpace/archive/dspace-5.8-knowledgearc.zip &&\
     unzip dspace-5.8-knowledgearc.zip &&\
+    mkdir -p /tmp/dspace &&\
     mv DSpace-dspace-5.8-knowledgearc/* /tmp/dspace &&\
     rm -rf DSpace-dspace-5.8-knowledgearc/ &&\
     wget http://www-us.apache.org/dist/tomcat/tomcat-${TOMCAT_MAJOR}/v${TOMCAT_MINOR}/bin/apache-tomcat-${TOMCAT_MINOR}.tar.gz &&\
