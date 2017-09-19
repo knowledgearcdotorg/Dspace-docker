@@ -31,8 +31,6 @@ cacert="/var/run/secrets/kubernetes.io/serviceaccount/ca.crt";
 token="$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)";
 export service=$(curl -s --cacert $cacert --header "Authorization:Bearer $token" https://kubernetes.default.svc/api/v1/namespaces/$namespace/services/$service | jq -r '.status.loadBalancer.ingress[0].hostname');
 
-echo -e "export DSPACE_HOSTNAME=${service}" >>/config/config
-
 echo "Service:" $service
 
 cat /config/config
@@ -89,6 +87,13 @@ fi
 
 export AWS_S3_ARCHIVE_BUCKET="archive.$NAME.knowledgearc.net"
 export AWS_S3_BACKUP_BUCKET="backup.$NAME.knowledgearc.net"
+
+keys=`aws iam list-access-keys --user-name $NAME`
+number=`echo $keys | jq '.AccessKeyMetadata | length'`
+if [ $number -gt 0 ]; 
+then 
+    aws iam delete-access-key --access-key $(echo $keys | jq -r '.AccessKeyMetadata[0].AccessKeyId') --user-name $NAME; 
+fi
 
 aws iam create-user --user-name $NAME --output text
 

@@ -240,12 +240,8 @@ echo '<?xml version="1.0" ?>
     <WatchedResource>WEB-INF/web.xml</WatchedResource>
 </Context>' > /opt/apache-tomcat-${TOMCAT_MINOR}/conf/Catalina/localhost/solr.xml
 
-echo '#!/bin/bash
-aws iam delete-access-key --access-key-id ${AWS_ACCESS_KEY_ID}
-' | envsubst > /prestop.sh
-
-chmod +x /prestop.sh
-
 rm -rf /opt/apache-tomcat-8.0.46/work/Catalina/localhost
+
+/opt/dspace/bin/dspace create-administrator -e webmaster@knowledgearc.com -f DSpace -l Admin -p admin123 -c en
 
 /opt/apache-tomcat-${TOMCAT_MINOR}/bin/catalina.sh run
