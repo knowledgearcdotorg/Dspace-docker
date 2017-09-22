@@ -1,33 +1,48 @@
 FROM ubuntu:16.04
 
+ENV KNOWLEDGEARC_DSPACE_BRANCH dspace-5_x_knowledgearc
+
+ENV TOMCAT_MAJOR 8
+
+ENV TOMCAT_MINOR 8.0.46
+
 RUN useradd -m dspace &&\
     apt-get update &&\
     apt-get install -y \
+    python-setuptools \
+    unzip \
     wget \
     git \
     postgresql-client \
-    default-jre \
     default-jdk \
+    default-jre \
+    gettext \
     maven
+
+RUN easy_install pip &&\
+    pip install awscli
 
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/jre/
 
-WORKDIR /opt
+WORKDIR /tmp
 
-RUN wget https://github.com/DSpace/DSpace/releases/download/dspace-6.1/dspace-6.1-src-release.tar.gz &&\
-    tar -xvzf dspace-6.1-src-release.tar.gz &&\
-    rm -f dspace-6.1-src-release.tar.gz &&\
-    wget http://www-us.apache.org/dist/tomcat/tomcat-8/v8.0.46/bin/apache-tomcat-8.0.46.tar.gz &&\
-    tar -xvzf apache-tomcat-8.0.46.tar.gz &&\
-    rm -f apache-tomcat-8.0.46.tar.gz &&\
-    chown -R dspace:dspace /opt/dspace-6.1-src-release/
+RUN wget https://github.com/knowledgearcdotorg/DSpace/archive/dspace-5.8-knowledgearc.zip &&\
+    unzip dspace-5.8-knowledgearc.zip &&\
+    mkdir -p /tmp/dspace &&\
+    mv DSpace-dspace-5.8-knowledgearc/* /tmp/dspace &&\
+    rm -rf DSpace-dspace-5.8-knowledgearc/ &&\
+    wget http://www-us.apache.org/dist/tomcat/tomcat-${TOMCAT_MAJOR}/v${TOMCAT_MINOR}/bin/apache-tomcat-${TOMCAT_MINOR}.tar.gz &&\
+    tar -xvzf apache-tomcat-${TOMCAT_MINOR}.tar.gz &&\
+    mv apache-tomcat-${TOMCAT_MINOR}  /opt &&\
+    rm -f apache-tomcat-${TOMCAT_MINOR}.tar.gz &&\
+    chown -R dspace:dspace /tmp/dspace/
 
-WORKDIR dspace-6.1-src-release
-
-ADD local.cfg dspace/config/local.cfg
+WORKDIR dspace
 
 RUN mvn package &&\
     cd dspace/target/dspace-installer
+
+ADD server.xml /opt/apache-tomcat-8.0.46/conf/server.xml
 
 ADD entry.sh /entry.sh
 
