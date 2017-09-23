@@ -91,7 +91,7 @@ export AWS_S3_BACKUP_BUCKET="backup.$NAME.knowledgearc.net"
 keys=`aws iam list-access-keys --user-name $NAME`
 number=`echo $keys | jq '.AccessKeyMetadata | length'`
 if [ $number -gt 0 ]; 
-then 
+then
     aws iam delete-access-key --access-key $(echo $keys | jq -r '.AccessKeyMetadata[0].AccessKeyId') --user-name $NAME; 
 fi
 

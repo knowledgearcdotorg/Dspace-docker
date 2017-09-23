@@ -201,6 +201,7 @@ if [ ! -z "$LOG_DIR" ]; then
     sed -i "s|log.dir.*=.*|log.dir=${LOG_DIR}|1" /tmp/dspace/dspace/target/dspace-installer/config/dspace.cfg
 fi
 
+
 cd /tmp/dspace/dspace/target/dspace-installer
 
 check=1
@@ -217,6 +218,27 @@ psql -h ${POSTGRES_HOST} -p ${POSTGRES_PORT} --username=${DB_USERNAME} dspace -c
 ant fresh_install
 
 echo "I am "$(whoami)
+
+# Copying over customer templates
+
+ssh-keyscan -t rsa github.com >> /root/.ssh/known_hosts
+
+git clone git@github.com:knowledgearc/customer-templates.git /tmp/customer-templates
+
+cd /tmp/customer-templates
+
+function list_include_item { local list="$1"; local item="$2"; if [[ $list =~ (^|[[:space:]])"$item"($|[[:space:]]) ]] ; then result=0; else result=1; fi; return $result;};
+
+dirs=`git ls-tree -d origin/master | awk '{print $NF}'`
+
+`list_include_item "$dirs" "$NAME"` && check=1 || check=0
+
+if [ $check -eq 1 ];
+then
+    cp -R $NAME/* /opt/dspace/;
+fi
+
+# Tomcat setup
 
 mkdir -p /opt/apache-tomcat-${TOMCAT_MINOR}/conf/Catalina/localhost
 

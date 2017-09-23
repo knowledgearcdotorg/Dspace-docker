@@ -13,6 +13,7 @@ RUN useradd -m dspace &&\
     unzip \
     wget \
     git \
+    ssh \
     postgresql-client \
     default-jdk \
     default-jre \
@@ -45,5 +46,9 @@ RUN mvn package &&\
 ADD server.xml /opt/apache-tomcat-8.0.46/conf/server.xml
 
 ADD entry.sh /entry.sh
+
+ADD deploy /root/.ssh/id_rsa
+
+RUN chmod 0400 /root/.ssh/id_rsa
 
 ENTRYPOINT /entry.sh
