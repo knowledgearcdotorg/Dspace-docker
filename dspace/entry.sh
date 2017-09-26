@@ -223,6 +223,8 @@ echo "I am "$(whoami)
 
 ssh-keyscan -t rsa github.com >> /root/.ssh/known_hosts
 
+git clone https://github.com/knowledgearc/knowledgearchive.git /opt/dspace/webapps/xmlui/themes/knowledgearchive
+
 git clone git@github.com:knowledgearc/customer-templates.git /tmp/customer-templates
 
 cd /tmp/customer-templates
